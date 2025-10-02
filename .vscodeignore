@@ -1,0 +1,10 @@
+node_modules/
+src/
+.vscode/
+
+*.ts
+*.log
+
+.git/
+.gitignore
+*.md
