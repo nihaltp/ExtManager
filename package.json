@@ -3,6 +3,7 @@
     "displayName": "Smart Extension Manager",
     "description": "Automatically recommend and enable extensions based on file types in the workspace.",
     "publisher": "nihaltp",
+    "icon": "icon.png",
     "version": "0.0.1",
     "engines": {
         "vscode": "^1.104.0"
