@@ -1,3 +1,4 @@
+import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -9,10 +10,16 @@ import * as path from 'path';
   * @returns {Record<string, string[]>} A map of file types to extensions.
   */
 export function getFileTypeToExtensionMap(): Record<string, string[]> {
-    const mappingPath: string = path.join(__dirname, "../data", "mappings.json");
-    if (fs.existsSync(mappingPath)) {
-        const data: string = fs.readFileSync(mappingPath, "utf8");
-        return JSON.parse(data);
+    try {
+        const mappingPath: string = path.join(__dirname, "../data", "mappings.json");
+        if (fs.existsSync(mappingPath)) {
+            const data: string = fs.readFileSync(mappingPath, "utf8");
+            return JSON.parse(data);
+        }
+        return {};
+    } catch (error) {
+        console.error("Error reading mappings.json:", error);
+        vscode.window.showErrorMessage(`Error reading mappings.json: ${error}`);
+        return {};
     }
-    return {};
 }

@@ -17,37 +17,42 @@ import { getFileTypeToExtensionMap } from '../utils/fileHelpers';
   * saved to disk.
   */
 export async function scanWorkspace() {
-    if (!vscode.workspace.workspaceFolders) {
-        vscode.window.showWarningMessage("No workspace open.");
-        return;
-    }
+    try {
+        if (!vscode.workspace.workspaceFolders) {
+            vscode.window.showWarningMessage("No workspace open.");
+            return;
+        }
 
-    const rootPath = vscode.workspace.workspaceFolders[0].uri.fsPath;
-    const files = await vscode.workspace.findFiles("**/*.*");
-    const extFile = path.join(rootPath, ".vscode", "extensions.json");
-    let config: any = { recommendations: [] };
+        const rootPath = vscode.workspace.workspaceFolders[0].uri.fsPath;
+        const files = await vscode.workspace.findFiles("**/*.*");
+        const extFile = path.join(rootPath, ".vscode", "extensions.json");
+        let config: any = { recommendations: [] };
 
-    if (fs.existsSync(extFile)) {
-        config = JSON.parse(fs.readFileSync(extFile, "utf8"));
-    } else {
-        vscode.window.showInformationMessage("No extensions.json found. Creating one.");
-    }
+        if (fs.existsSync(extFile)) {
+            config = JSON.parse(fs.readFileSync(extFile, "utf8"));
+        } else {
+            vscode.window.showInformationMessage("No extensions.json found. Creating one.");
+        }
 
-    const fileTypeToExtension = getFileTypeToExtensionMap();
+        const fileTypeToExtension = getFileTypeToExtensionMap();
 
-    for (const file of files) {
-        const ext = path.extname(file.fsPath);
-        if (fileTypeToExtension[ext]) {
-            for (const extId of fileTypeToExtension[ext]) {
-                if (!config.recommendations.includes(extId)) {
-                    config.recommendations.push(extId);
+        for (const file of files) {
+            const ext = path.extname(file.fsPath);
+            if (fileTypeToExtension[ext]) {
+                for (const extId of fileTypeToExtension[ext]) {
+                    if (!config.recommendations.includes(extId)) {
+                        config.recommendations.push(extId);
+                    }
                 }
             }
         }
-    }
 
-    // Save updated recommendations
-    fs.mkdirSync(path.join(rootPath, ".vscode"), { recursive: true });
-    fs.writeFileSync(extFile, JSON.stringify(config, null, 2));
-    vscode.window.showInformationMessage("Extensions.json updated!");
+        // Save updated recommendations
+        fs.mkdirSync(path.join(rootPath, ".vscode"), { recursive: true });
+        fs.writeFileSync(extFile, JSON.stringify(config, null, 2));
+        vscode.window.showInformationMessage("Extensions.json updated!");
+    } catch (error) {
+        console.error("Error scanning workspace:", error);
+        vscode.window.showErrorMessage(`Error scanning workspace: ${error}`);
+    }
 }
