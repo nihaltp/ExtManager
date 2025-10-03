@@ -23,3 +23,24 @@ export function getFileTypeToExtensionMap(): Record<string, string[]> {
         return {};
     }
 }
+
+/**
+  * Opens a file in the VS Code editor.
+  * If the file does not exist, an error message is shown.
+  * 
+  * @param {string} filePath The path to the file to open.
+  */
+export async function openFile(filePath: string) {
+    try {
+        // Open the file as a TextDocument
+        const document = await vscode.workspace.openTextDocument(filePath);
+        
+        // Show it in an editor tab
+        await vscode.window.showTextDocument(document, {
+            preview: false,
+            viewColumn: vscode.ViewColumn.One
+        });
+    } catch (err) {
+        vscode.window.showErrorMessage(`Failed to open file: ${err}`);
+    }
+}
