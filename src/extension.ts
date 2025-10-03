@@ -6,12 +6,12 @@ import { addExtension } from './commands/addExtension';
 export function activate(context: vscode.ExtensionContext) {
     // scan workspace
     context.subscriptions.push(
-        vscode.commands.registerCommand('smartExtManager.scanWorkspace', scanWorkspace)
+        vscode.commands.registerCommand('ExtManager.scanWorkspace', scanWorkspace)
     );
 
     // add extension
     context.subscriptions.push(
-        vscode.commands.registerCommand('smartExtManager.addExtension', addExtension)
+        vscode.commands.registerCommand('ExtManager.addExtension', addExtension)
     );
 }
 

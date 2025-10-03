@@ -1,10 +1,10 @@
 {
-    "name": "smart-extension-manager",
-    "displayName": "Smart Extension Manager",
+    "name": "auto-ext-manager",
+    "displayName": "Sync Extensions",
     "description": "Automatically recommend and enable extensions based on file types in the workspace.",
     "publisher": "nihaltp",
     "icon": "icon.png",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "engines": {
         "vscode": "^1.104.0"
     },
@@ -24,12 +24,12 @@
     "contributes": {
         "commands": [
             {
-                "command": "smartExtManager.scanWorkspace",
-                "title": "SEM: Scan Workspace for File Types"
+                "command": "ExtManager.scanWorkspace",
+                "title": "EM: Scan Workspace for File Types"
             },
             {
-                "command": "smartExtManager.addExtension",
-                "title": "SEM: Add Extension"
+                "command": "ExtManager.addExtension",
+                "title": "EM: Add Extension"
             }
         ]
     },
@@ -44,6 +44,6 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/nihaltp/smartExtManager.git"
+        "url": "https://github.com/nihaltp/ExtManager.git"
     }
 }
