@@ -14,7 +14,8 @@
     "main": "./out/extension.js",
     "scripts": {
         "vscode:prepublish": "npm run compile",
-        "compile": "tsc -p ./"
+        "compile": "tsc -p ./",
+        "start": "npm run compile && code --extensionDevelopmentPath=. --new-window"
     },
     "devDependencies": {
         "@types/node": "^24.6.2",
