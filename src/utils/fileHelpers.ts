@@ -15,6 +15,8 @@ export function getFileTypeToExtensionMap(): Record<string, string[]> {
         if (fs.existsSync(mappingPath)) {
             const data: string = fs.readFileSync(mappingPath, "utf8");
             return JSON.parse(data);
+        } else {
+            vscode.window.showInformationMessage("No mappings.json file found. Add extensions using 'Add Extension' command.");
         }
         return {};
     } catch (error) {

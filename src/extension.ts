@@ -3,6 +3,7 @@ import * as vscode from 'vscode';
 import { scanWorkspace } from './commands/scanWorkspace';
 import { addExtension } from './commands/addExtension';
 import { showRecommendations } from './commands/showRecommendations';
+import { removeFile } from './commands/removeFile';
 
 export function activate(context: vscode.ExtensionContext) {
     // scan workspace
@@ -13,6 +14,11 @@ export function activate(context: vscode.ExtensionContext) {
     // add extension
     context.subscriptions.push(
         vscode.commands.registerCommand('ExtManager.addExtension', addExtension)
+    );
+
+    // remove file - removes extensions used for a specific file type
+    context.subscriptions.push(
+        vscode.commands.registerCommand('ExtManager.removeExtension', removeFile)
     );
 
     // show recommendation file

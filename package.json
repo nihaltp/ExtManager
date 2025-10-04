@@ -4,7 +4,7 @@
     "description": "Automatically recommend and enable extensions based on file types in the workspace.",
     "publisher": "nihaltp",
     "icon": "icon.png",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "engines": {
         "vscode": "^1.104.0"
     },
@@ -30,6 +30,10 @@
             {
                 "command": "ExtManager.addExtension",
                 "title": "EM: Add Extension"
+            },
+            {
+                "command": "ExtManager.removeExtension",
+                "title": "EM: Remove File Type Extension Mapping"
             },
             {
                 "command": "ExtManager.showRecommendations",
